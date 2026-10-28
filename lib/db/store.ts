@@ -159,7 +159,9 @@ class InMemoryPersistentDB {
   private filePath: string;
 
   constructor() {
-    this.filePath = path.join(process.cwd(), ".data-cache.json");
+    this.filePath = process.env.VERCEL
+      ? path.join("/tmp", ".data-cache.json")
+      : path.join(process.cwd(), ".data-cache.json");
     this.data = this.load();
   }
 
