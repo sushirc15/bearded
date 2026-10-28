@@ -1,0 +1,66 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Battle {
+  id              String   @id @default(cuid())
+  status          String   @default("idle") // idle, rolling, slot_ready, ready, finished
+  houseSlot       Json?    // { id, name, provider, thumbnail, rtp, volatility }
+  chatSlot        Json?    // { id, name, provider, thumbnail, rtp, volatility }
+  chatterName     String?
+  chatterAvatar   String?
+  houseMultiplier Float?
+  chatMultiplier  Float?
+  winner          String?  // "house" | "chat"
+  lastAssigned    Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model Score {
+  id        String   @id @default("singleton")
+  houseWins Int      @default(0)
+  chatWins  Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model Roll {
+  id         String   @id // uuid rollId
+  slotId     String
+  slotData   Json
+  startedAt  BigInt
+  durationMs Int      @default(5500)
+  jitter     Float    @default(0.0)
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Bracket {
+  id        String   @id @default(cuid())
+  size      Int      @default(8) // 4, 8, 16
+  status    String   @default("active") // active, champion_crowned
+  entries   Json     // Array<{ slot: string, player: string }>
+  winners   Json     // Record<roundIndex, (string | null)[]>
+  champion  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model Snapshot {
+  id        String   @id @default(cuid())
+  type      String   // "battle" | "bracket"
+  data      Json
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+}

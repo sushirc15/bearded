@@ -1,0 +1,118 @@
+@import "lenis/dist/lenis.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #060806;
+  --surface: rgba(14, 20, 15, 0.55);
+  --elevated: rgba(22, 32, 24, 0.7);
+  --primary-neon: #00E700;
+  --primary-lime: #BDF76B;
+  --crimson: #E5383B;
+  --text-primary: #F5EFE8;
+  --text-muted: #9EADA0;
+}
+
+/* Lenis Smooth Scroll Foundation */
+html {
+  background-color: #060806;
+  color: #F5EFE8;
+  color-scheme: dark;
+  scroll-behavior: auto !important;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: #060806;
+  color: #F5EFE8;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060806;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 231, 0, 0.35);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 231, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00E700;
+  box-shadow: 0 0 10px #00E700;
+}
+
+/* Selection Color */
+::selection {
+  background: #00E700;
+  color: #060806;
+}
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 2px solid #00E700;
+  outline-offset: 2px;
+}
+
+/* Chamfered Polygons (Clipped-Corner Shapes) */
+.clip-chamfer {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.clip-chamfer-lg {
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+.clip-chamfer-sm {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.clip-tag-left {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+}
+
+.clip-tag-right {
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Subtle Card Tilt & Texture */
+.card-tilt {
+  transform: rotate(-1deg);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+}
